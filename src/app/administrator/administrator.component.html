@@ -1,0 +1,51 @@
+<div class="container mt-2">
+  <ng-container *ngIf="administrator | async as listAdministrator ;else failure">
+    <div class="card" >
+      <div class="card-header">Admininistrators</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup] = "searchFormGroup" (ngSubmit)="handleSearchAdmin()">
+            <div class="input-group">
+              <label class="input-group-text">keyword</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info"><i class="bi bi-search"></i></button>
+            </div>
+          </form>
+        </div>
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Full Name</th>
+            <th>username</th>
+            <th>email</th>
+            <th>birthday</th>
+            <th>Address</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let a of administrator | async">
+            <td>{{a.idAdministrator}}</td>
+            <td>{{a.fullName}}</td>
+            <td>{{a.username}}</td>
+            <td>{{a.email}}</td>
+            <td>{{a.birthday}}</td>
+            <td>{{a.address}}</td>
+            <td><button type="button" class="btn btn-light" (click)="editProduct(a)">Edit</button>
+              <button style="margin-left: 8px " type="button" class="btn btn-danger" (click)="deleteAdmin(a.idAdministrator)">delete</button></td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="btn btn-info m-5 m-lg-5" (click)="openDialog()">Add new</button>
+    </div>
+
+  </ng-container>
+  <ng-template #failure class="text-danger">
+    {{errorMessage}}
+  </ng-template>
+
+</div>
